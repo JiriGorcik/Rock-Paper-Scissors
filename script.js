@@ -1,4 +1,4 @@
-
+let playerSelection = prompt("Rock, Paper or Scissors").toLocaleLowerCase()
 
 let getComputerChoice = () => {
 
@@ -7,4 +7,3 @@ let getComputerChoice = () => {
     return answer
 }
 
-console.log(getComputerChoice());
