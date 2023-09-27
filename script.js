@@ -1,11 +1,46 @@
 let playerScore = 0
 let computerScore = 0
 
+let playerChoice
 
-let getPlayerChoice = () => {
-   let answer = prompt("Rock, Paper or Scissors").toLowerCase()
-   return answer
-}   
+let resultDisplay = document.querySelector(".result")
+let playerChoiceDisplay = document.querySelectorAll(".buttons")
+let playerPoints = document.querySelector("#pPoints")
+let computerPoints = document.querySelector("#cPoints")
+let tryAgainButton = document.querySelector(".try-again-noactive")
+
+tryAgainButton.addEventListener("click", () => {
+    window.location.reload()
+})
+
+playerChoiceDisplay.forEach((oneChoice) => {
+    oneChoice.addEventListener("click", (e) => {
+       playerChoice = e.target.id
+       let result = playRound(playerChoice, getComputerChoice())
+       resultDisplay.textContent = result
+
+
+       if (playerScore == 5) {
+            resultDisplay.textContent = "You are the Winner!!" 
+            tryAgainButton.classList.remove("try-again-noactive")
+            tryAgainButton.classList.add("try-again-active")
+
+            } else if (computerScore == 5){
+                resultDisplay.textContent = "You lose!!"
+                tryAgainButton.classList.remove("try-again-noactive")
+                tryAgainButton.classList.add("try-again-active")
+
+            } else if (result.includes("Win")){
+            playerScore++
+            playerPoints.textContent = playerScore
+           } else if (result.includes("Lose")){
+            computerScore++
+            computerPoints.textContent = computerScore
+           }     
+}
+     
+)})
+
 
 let getComputerChoice = () => {
 
@@ -14,9 +49,9 @@ let getComputerChoice = () => {
     return answer.toLowerCase()
 }
 
+
 let playRound =  (playerChoice, computerChoice) => {
     
-
     if (playerChoice === computerChoice) {
         return "Tie"
     }
@@ -40,37 +75,15 @@ let playRound =  (playerChoice, computerChoice) => {
     }  
 }
 
-let game = () => {
-    let playerScore = 0
-    let computerScore = 0
-
-    for (let i = 0; i < 5; i++){
-        let player = getPlayerChoice()
-        let comp = getComputerChoice()
-        console.log(playRound(player, comp));
 
 
-        if (playRound(player, comp).includes("Win")) {
-            playerScore++
-        } else if (playRound(player, comp).includes("Lose")) {
-            computerScore++
-        }
-        console.log(`${playerScore} : ${computerScore}`);
-        console.log("-----------");
-     }
 
-     console.log(`Game over`);
 
-     if (playerScore > computerScore) {
-        console.log("You are the Winner!!"); 
-     } else if (computerScore > playerScore) {
-        console.log("You lose, reload the page and try again"); 
-     } else {
-        console.log("Almost it's tie"); 
-     }
-}
 
-game()
+
+
+
+
 
 
 
